@@ -41,21 +41,21 @@ struct AlternateStackLayout: Layout {
             .max()
         
         let evenX = bounds.minX
-        let oddX = bounds.minX + (evenWidthMax ?? bounds.minX)
+        let oddX = bounds.minX + evenWidthMax!
         
         var y = bounds.minY
         
         for (index, subview) in subviews.enumerated() {
             let subviewSize = subviewSizes[index]
-            let sizeProposal = ProposedViewSize(width: subviewSize.width, height: subviewSize.height)
+            let proposedSize = ProposedViewSize(width: subviewSize.width, height: subviewSize.height)
             if index.isMultiple(of: 2) {
                 subview.place(at: CGPoint(x: evenX, y: y),
                               anchor: .topLeading,
-                              proposal: sizeProposal)
+                              proposal: proposedSize)
             } else {
                 subview.place(at: CGPoint(x: oddX, y: y),
                               anchor: .topLeading,
-                              proposal: sizeProposal)
+                              proposal: proposedSize)
             }
             y += subviewSize.height
         }
